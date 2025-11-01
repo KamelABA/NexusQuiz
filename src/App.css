@@ -1,0 +1,88 @@
+.App {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.language-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.App[dir="rtl"] .language-toggle {
+  right: auto;
+  left: 20px;
+}
+
+.lang-button {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--c3);
+  color: var(--c3);
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.lang-button:hover {
+  background: var(--c3);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(36, 117, 172, 0.35);
+}
+
+.container {
+  width: 100%;
+}
+
+.start-screen {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 60px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  color: #333;
+}
+
+.start-screen h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--c5) 0%, var(--c6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.start-screen p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  color: #666;
+}
+
+.start-button {
+  background: linear-gradient(135deg, var(--c5) 0%, var(--c6) 100%);
+  color: white;
+  border: none;
+  padding: 15px 50px;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 5px 15px rgba(233, 119, 245, 0.35);
+}
+
+.start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(233, 119, 245, 0.5);
+}
+
+.start-button:active {
+  transform: translateY(0);
+}
+

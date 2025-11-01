@@ -1,0 +1,47 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, 'Segoe UI', Tahoma, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Retro palette */
+  --c1: #042142; /* deep navy */
+  --c2: #153C6A; /* dark blue */
+  --c3: #2475AC; /* blue */
+  --c4: #3DE0FC; /* neon cyan */
+  --c5: #733E85; /* purple */
+  --c6: #E977F5; /* neon magenta */
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.92);
+  background-color: var(--c1);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[dir="rtl"] {
+  font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(60% 80% at 50% 20%, var(--c3) 0%, var(--c2) 45%, var(--c1) 100%);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
