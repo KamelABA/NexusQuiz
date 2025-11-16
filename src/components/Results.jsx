@@ -7,7 +7,7 @@ function Results({ answers, onRestart, userName, userCode, durationMs }) {
   const review = []
   const [leaderboard, setLeaderboard] = useState([])
   const hasPostedRef = useRef(false)
-  const API_BASE = import.meta.env.VITE_API_URL || 'http://10.166.203.221:5000'
+  const API_BASE = import.meta.env.VITE_API_URL || 'http://192.168.2.146:5000'
 
   quizData.forEach((question, index) => {
     const isCorrect = answers[index] === question.correct

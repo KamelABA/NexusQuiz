@@ -1,26 +1,31 @@
 export const quizData = [
   {
     id: 1,
-    question: "What does HTTP stand for?",
-    options: ["HyperText Transfer Protocol", "High Transfer Text Protocol", "HyperTransfer Text Protocol", "HyperText Transport Protocol"],
-    correct: 0
+    question: "Which of the following fields uses Artificial Intelligence today?",
+    options: ["Medicine", "Education", "Transportation", "All of the above"],
+    correct: 3
   },
   {
     id: 2,
-    question: "What is the time complexity of binary search on a sorted array?",
-    options: ["O(n)", "O(log n)", "O(n log n)", "O(1)"],
+    question: "What is the most important element that AI systems need to function efficiently?",
+    options: ["Electricity", "Data", "Internet only", "Time"],
     correct: 1
   },
   {
     id: 3,
-    question: "Which data structure follows LIFO (Last In First Out) principle?",
-    options: ["Queue", "Stack", "Tree", "Linked List"],
-    correct: 1
+    question: "Which one is NOT one of our activities?",
+    options: ["Game development", "Software development", "UI/UX", "Data analysis"],
+    correct: 3
   },
   {
     id: 4,
-    question: "What does CSS stand for?",
-    options: ["Computer Style Sheets", "Cascading Style Sheets", "Creative Style Sheets", "Colorful Style Sheets"],
+    question: "What does 'Content Creator' truly mean?",
+    options: [
+      "Someone who only makes videos",
+      "A creative person who makes content in different fields",
+      "Someone who posts every day",
+      "Someone who works in photography only"
+    ],
     correct: 1
   },
   {
@@ -55,9 +60,14 @@ export const quizData = [
   },
   {
     id: 10,
-    question: "Which protocol is used for secure communication over a computer network?",
-    options: ["HTTP", "FTP", "HTTPS", "SMTP"],
-    correct: 2
+    question: "What is the purpose of the quiz?",
+    options: [
+      "Entertainment + interaction with the community",
+      "Just wasting time",
+      "A strict exam",
+      "A programming test only"
+    ],
+    correct: 0
   }
 ];
 
