@@ -6,6 +6,38 @@
   color: #333;
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+}
+
+.quiz-language-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+[dir="rtl"] .quiz-language-toggle {
+  right: auto;
+  left: 20px;
+}
+
+.quiz-lang-button {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--c3);
+  color: var(--c3);
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-lang-button:hover {
+  background: var(--c3);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(36, 117, 172, 0.35);
 }
 
 .user-name-display {

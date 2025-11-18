@@ -86,3 +86,17 @@
   transform: translateY(0);
 }
 
+.info-link-text {
+  display: inline-block;
+  margin-top: 20px;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.info-link-text:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+

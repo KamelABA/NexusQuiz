@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import { translations } from './utils/translations'
 import Quiz from './components/Quiz'
 import Results from './components/Results'
 import NameInput from './components/NameInput'
+import Info from './components/Info'
 import './App.css'
 
-function App() {
+function QuizApp() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState([])
   const [showResults, setShowResults] = useState(false)
@@ -71,6 +74,8 @@ function App() {
     setLanguage(language === 'en' ? 'ar' : 'en')
   }
 
+  const t = translations[language] || translations.en
+
   return (
     <div className="App" dir={language === 'ar' ? 'rtl' : 'ltr'}>
       <div className="container">
@@ -86,10 +91,10 @@ function App() {
                 {language === 'en' ? 'العربية' : 'English'}
               </button>
             </div>
-            <h1>{language === 'en' ? 'Computer Science Quiz' : 'اختبار علوم الحاسوب'}</h1>
-            <p>{language === 'en' ? 'Test your CS knowledge with 10 challenging questions' : 'اختبر معرفتك بـ 10 أسئلة تحدي'}</p>
+            <h1>{t.welcome}</h1>
+            <p>{t.subtitle}</p>
             <button className="start-button" onClick={handleStart}>
-              {language === 'en' ? 'Start Quiz' : 'بدء الاختبار'}
+              {t.startQuiz}
             </button>
           </div>
         ) : showResults ? (
@@ -99,6 +104,7 @@ function App() {
             userName={userName}
             userCode={userCode}
             durationMs={durationMs}
+            language={language}
           />
         ) : (
           <Quiz
@@ -108,10 +114,21 @@ function App() {
             onNext={handleNext}
             onPrevious={handlePrevious}
             userName={userName}
+            language={language}
+            onToggleLanguage={toggleLanguage}
           />
         )}
       </div>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<QuizApp />} />
+      <Route path="/info" element={<Info />} />
+    </Routes>
   )
 }
 

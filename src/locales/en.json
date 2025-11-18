@@ -1,0 +1,129 @@
+{
+  "welcome": "Nexus Club Quiz",
+  "subtitle": "Test your knowledge with 10 challenging questions",
+  "startQuiz": "Start Quiz",
+  "enterName": "Enter your name",
+  "namePlaceholder": "Your name",
+  "submitName": "Continue",
+  "enterClass": "Enter your class number",
+  "classPlaceholder": "Class (e.g., 10A)",
+  "enterCode": "Enter your code",
+  "codePlaceholder": "Code (numbers)",
+  "question": "Question",
+  "of": "of",
+  "previous": "Previous",
+  "next": "Next",
+  "finish": "Finish",
+  "quizComplete": "Quiz Complete!",
+  "reviewAnswers": "Review Your Answers",
+  "yourAnswer": "Your answer:",
+  "correctAnswer": "Correct answer:",
+  "takeQuizAgain": "Take Quiz Again",
+  "outstanding": "Outstanding!",
+  "greatJob": "Great job!",
+  "goodEffort": "Good effort!",
+  "keepPracticing": "Keep practicing!",
+  "hello": "Hello",
+  "notAnswered": "Not answered",
+  "quizInformation": "Quiz Information",
+  "backToQuiz": "← Back to Quiz",
+  "totalVisits": "Total Visits",
+  "uniqueVisitors": "Unique Visitors",
+  "leaderboard": "Leaderboard",
+  "loading": "Loading...",
+  "noScoresYet": "No scores yet. Be the first to take the quiz!",
+  "rank": "Rank",
+  "name": "Name",
+  "code": "Code",
+  "score": "Score",
+  "time": "Time",
+  "date": "Date",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What does the word 'Nexus' in Cyber Nexus mean?",
+      "options": [
+        "Vulnerability",
+        "A connection or linking point",
+        "Virus",
+        "Database"
+      ]
+    },
+    {
+      "id": 2,
+      "question": "Which of the following fields uses Artificial Intelligence today?",
+      "options": ["Medicine", "Education", "Transportation", "All of the above"]
+    },
+    {
+      "id": 3,
+      "question": "What is the most important element that AI systems need to function efficiently?",
+      "options": ["Electricity", "Data", "Internet only", "Time"]
+    },
+    {
+      "id": 4,
+      "question": "Which one is NOT one of our activities?",
+      "options": ["Game development", "Software development", "UI/UX", "Data analysis"]
+    },
+    {
+      "id": 5,
+      "question": "What does 'Content Creator' truly mean?",
+      "options": [
+        "Someone who only makes videos",
+        "A creative person who makes content in different fields",
+        "Someone who posts every day",
+        "Someone who works in photography only"
+      ]
+    },
+    {
+      "id": 6,
+      "question": "Do e-wallets require you to complete identity verification (KYC)?",
+      "options": [
+        "Yes, they verify you before you can access the wallet",
+        "You can access first, then they verify later",
+        "They let you create an account and verification is optional",
+        "No, they do not require verification"
+      ]
+    },
+    {
+      "id": 7,
+      "question": "What does UI stand for?",
+      "options": [
+        "User Interaction",
+        "User Interface",
+        "Unique Illustration",
+        "Universal Input"
+      ]
+    },
+    {
+      "id": 8,
+      "question": "What is an Evil Twin attack?",
+      "options": [
+        "An antivirus program",
+        "A fake WiFi network that mimics the real one to trick users",
+        "A chat application",
+        "A system update"
+      ]
+    },
+    {
+      "id": 9,
+      "question": "What is the role of DNS?",
+      "options": [
+        "Increase internet speed",
+        "Translate domain names into IP addresses",
+        "Protect devices from viruses",
+        "Design websites"
+      ]
+    },
+    {
+      "id": 10,
+      "question": "What is the purpose of the quiz?",
+      "options": [
+        "Entertainment + interaction with the community",
+        "Just wasting time",
+        "A strict exam",
+        "A programming test only"
+      ]
+    }
+  ]
+}
+

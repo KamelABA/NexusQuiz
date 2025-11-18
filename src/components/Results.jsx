@@ -1,8 +1,11 @@
 import { useEffect, useState, useRef } from 'react'
-import { quizData } from '../data/quizData'
+import { getQuizData } from '../data/quizData'
+import { translations } from '../utils/translations'
 import './Results.css'
 
-function Results({ answers, onRestart, userName, userCode, durationMs }) {
+function Results({ answers, onRestart, userName, userCode, durationMs, language = 'en' }) {
+  const t = translations[language] || translations.en
+  const quizData = getQuizData(language)
   let score = 0
   const review = []
   const [leaderboard, setLeaderboard] = useState([])
@@ -15,7 +18,7 @@ function Results({ answers, onRestart, userName, userCode, durationMs }) {
 
     review.push({
       question: question.question,
-      userAnswer: question.options[answers[index] || -1] || 'Not answered',
+      userAnswer: question.options[answers[index] || -1] || t.notAnswered,
       correctAnswer: question.options[question.correct],
       isCorrect: isCorrect
     })
@@ -26,16 +29,16 @@ function Results({ answers, onRestart, userName, userCode, durationMs }) {
   let emoji = ''
 
   if (percentage >= 90) {
-    message = 'Outstanding!'
+    message = t.outstanding
     emoji = '🎉'
   } else if (percentage >= 70) {
-    message = 'Great job!'
+    message = t.greatJob
     emoji = '👍'
   } else if (percentage >= 50) {
-    message = 'Good effort!'
+    message = t.goodEffort
     emoji = '😊'
   } else {
-    message = 'Keep practicing!'
+    message = t.keepPracticing
     emoji = '💪'
   }
 
@@ -73,18 +76,18 @@ function Results({ answers, onRestart, userName, userCode, durationMs }) {
     <div className="results-container">
       {userName && (
         <div className="user-name-display-results">
-          Hello {userName}!
+          {t.hello} {userName}!
         </div>
       )}
       <div className="results-header">
-        <h1>Quiz Complete!</h1>
+        <h1>{t.quizComplete}</h1>
         <div className="score-display">
           <div className="score-circle">
             <span className="score-number">{score}</span>
             <span className="score-total">/{quizData.length}</span>
           </div>
           <div className="score-percentage">{Math.round(percentage)}%</div>
-          <div className="score-time">Time: {mm}:{ss}</div>
+          <div className="score-time">{t.time}: {mm}:{ss}</div>
           <div className="score-message">
             {emoji} {message}
           </div>
@@ -92,7 +95,7 @@ function Results({ answers, onRestart, userName, userCode, durationMs }) {
       </div>
 
       <div className="review-section">
-        <h2>Review Your Answers</h2>
+        <h2>{t.reviewAnswers}</h2>
         <div className="review-list">
           {review.map((item, index) => (
             <div key={index} className={`review-item ${item.isCorrect ? 'correct' : 'incorrect'}`}>
@@ -101,11 +104,11 @@ function Results({ answers, onRestart, userName, userCode, durationMs }) {
               </div>
               <div className="review-answers">
                 <div className={`review-answer ${item.isCorrect ? 'correct-answer' : 'wrong-answer'}`}>
-                  <span className="answer-label">Your answer:</span> {item.userAnswer}
+                  <span className="answer-label">{t.yourAnswer}</span> {item.userAnswer}
                 </div>
                 {!item.isCorrect && (
                   <div className="review-answer correct-answer">
-                    <span className="answer-label">Correct answer:</span> {item.correctAnswer}
+                    <span className="answer-label">{t.correctAnswer}</span> {item.correctAnswer}
                   </div>
                 )}
               </div>
@@ -150,7 +153,7 @@ function Results({ answers, onRestart, userName, userCode, durationMs }) {
       </div>
 
       <button className="restart-button" onClick={onRestart}>
-        Take Quiz Again
+        {t.takeQuizAgain}
       </button>
     </div>
   )

@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import scoresRouter from './routes/scores.js'
+import visitorsRouter from './routes/visitors.js'
 
 dotenv.config()
 
@@ -12,19 +13,23 @@ const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/quiz'
 
 app.use(cors())
 app.use(express.json())
+app.set('trust proxy', true)
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' })
 })
 
 app.use('/api/scores', scoresRouter)
+app.use('/api/visitors', visitorsRouter)
 
 mongoose
   .connect(mongoUri, { dbName: process.env.MONGODB_DB || undefined })
   .then(() => {
     console.log('Connected to MongoDB')
-    app.listen(port, () => {
-      console.log(`Server listening on http://localhost:${port}`)
+    app.listen(port, '0.0.0.0', () => {
+      console.log(`Server listening on http://0.0.0.0:${port}`)
+      console.log(`Access locally at http://localhost:${port}`)
+      console.log(`Access from network at http://<your-ip>:${port}`)
     })
   })
   .catch((err) => {
