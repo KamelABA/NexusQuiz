@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { collection, getDocs, orderBy, query, limit } from 'firebase/firestore'
 import { translations } from '../utils/translations'
+import { db } from '../firebase'
 import './Info.css'
 
 function Info() {
@@ -11,52 +13,36 @@ function Info() {
   const [searchParams] = useSearchParams()
   const language = searchParams.get('lang') || 'en'
   const t = translations[language] || translations.en
-  const API_BASE = import.meta.env.VITE_API_URL || 'http://192.168.2.146:5000'
 
   useEffect(() => {
     async function fetchData() {
+      // Optional: you can remove visitor logic if you no longer use the backend
+      setVisitorCount(0)
+      setUniqueVisitors(0)
+
       try {
-        // Track visitor
-        await fetch(`${API_BASE}/api/visitors`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' }
+        // Fetch leaderboard from Firestore 'scores' collection
+        // Fetch all (up to 100) then sort on the client to avoid index issues
+        const scoresRef = collection(db, 'scores')
+        const q = query(scoresRef, limit(100))
+        const snapshot = await getDocs(q)
+        const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+
+        // Sort: highest score first, then lowest durationMs (best time)
+        data.sort((a, b) => {
+          if (b.score !== a.score) return b.score - a.score
+          return (a.durationMs || 0) - (b.durationMs || 0)
         })
-      } catch (e) {
-        // ignore errors
-      }
 
-      try {
-        // Fetch visitor count
-        const visitorRes = await fetch(`${API_BASE}/api/visitors/count`)
-        const visitorData = await visitorRes.json()
-        if (visitorData.totalVisits !== undefined) {
-          setVisitorCount(visitorData.totalVisits)
-        }
-        if (visitorData.uniqueVisitors !== undefined) {
-          setUniqueVisitors(visitorData.uniqueVisitors)
-        } else if (visitorData.count !== undefined) {
-          // Fallback for backward compatibility
-          setVisitorCount(visitorData.count)
-        }
+        setLeaderboard(data)
       } catch (e) {
-        // ignore errors
-      }
-
-      try {
-        // Fetch leaderboard
-        const leaderboardRes = await fetch(`${API_BASE}/api/scores/leaderboard?limit=100`)
-        const leaderboardData = await leaderboardRes.json()
-        if (Array.isArray(leaderboardData)) {
-          setLeaderboard(leaderboardData)
-        }
-      } catch (e) {
-        // ignore errors
+        console.error('Failed to load scores from Firestore on Info page', e)
       }
 
       setLoading(false)
     }
     fetchData()
-  }, [API_BASE])
+  }, [])
 
   const formatTime = (ms) => {
     const seconds = Math.floor(ms / 1000)

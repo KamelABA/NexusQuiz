@@ -4,6 +4,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import scoresRouter from './routes/scores.js'
 import visitorsRouter from './routes/visitors.js'
+import { firestore } from './firebaseAdmin.js'
 
 dotenv.config()
 
@@ -15,8 +16,15 @@ app.use(cors())
 app.use(express.json())
 app.set('trust proxy', true)
 
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok' })
+// Simple health endpoint to verify server and Firebase
+app.get('/api/health', async (req, res) => {
+  try {
+    // Try a lightweight Firestore operation to confirm connectivity
+    await firestore.listCollections()
+    res.json({ status: 'ok', firebase: true })
+  } catch (e) {
+    res.json({ status: 'ok', firebase: false })
+  }
 })
 
 app.use('/api/scores', scoresRouter)
@@ -26,6 +34,7 @@ mongoose
   .connect(mongoUri, { dbName: process.env.MONGODB_DB || undefined })
   .then(() => {
     console.log('Connected to MongoDB')
+    console.log('Firebase Admin initialized for Firestore')
     app.listen(port, '0.0.0.0', () => {
       console.log(`Server listening on http://0.0.0.0:${port}`)
       console.log(`Access locally at http://localhost:${port}`)

@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
+import { collection, addDoc, getDocs, orderBy, query, limit } from 'firebase/firestore'
 import { getQuizData } from '../data/quizData'
 import { translations } from '../utils/translations'
+import { db } from '../firebase'
 import './Results.css'
 
 function Results({ answers, onRestart, userName, userCode, durationMs, language = 'en' }) {
@@ -10,7 +12,6 @@ function Results({ answers, onRestart, userName, userCode, durationMs, language 
   const review = []
   const [leaderboard, setLeaderboard] = useState([])
   const hasPostedRef = useRef(false)
-  const API_BASE = import.meta.env.VITE_API_URL || 'http://192.168.2.146:5000'
 
   quizData.forEach((question, index) => {
     const isCorrect = answers[index] === question.correct
@@ -51,23 +52,31 @@ function Results({ answers, onRestart, userName, userCode, durationMs, language 
       if (!hasPostedRef.current) {
         hasPostedRef.current = true
         try {
-          await fetch(`${API_BASE}/api/scores`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: userName || 'Anonymous', code: userCode || '0000', score, durationMs: durationMs || 0 })
+          // Save current user's score to Firestore 'scores' collection
+          await addDoc(collection(db, 'scores'), {
+            name: userName || 'Anonymous',
+            code: userCode || '0000',
+            score,
+            durationMs: durationMs || 0,
+            createdAt: new Date().toISOString(),
           })
         } catch (e) {
           // ignore errors for UX simplicity
         }
       }
+
       try {
-        const res = await fetch(`${API_BASE}/api/scores/leaderboard?limit=10`)
-        const data = await res.json()
-        if (Array.isArray(data)) setLeaderboard(data)
+        // Fetch top 10 scores ordered by score desc, duration asc
+        const scoresRef = collection(db, 'scores')
+        const q = query(scoresRef, orderBy('score', 'desc'), orderBy('durationMs', 'asc'), limit(10))
+        const snapshot = await getDocs(q)
+        const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+        setLeaderboard(data)
       } catch (e) {
         // ignore errors
       }
     }
+
     submitAndFetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
