@@ -9,6 +9,7 @@ function Info() {
   const [leaderboard, setLeaderboard] = useState([])
   const [visitorCount, setVisitorCount] = useState(0)
   const [uniqueVisitors, setUniqueVisitors] = useState(0)
+  const [scoreCount, setScoreCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [searchParams] = useSearchParams()
   const language = searchParams.get('lang') || 'en'
@@ -22,10 +23,9 @@ function Info() {
 
       try {
         // Fetch leaderboard from Firestore 'scores' collection
-        // Fetch all (up to 100) then sort on the client to avoid index issues
+        // Fetch all documents, then sort on the client (good for <= few thousand docs)
         const scoresRef = collection(db, 'scores')
-        const q = query(scoresRef, limit(100))
-        const snapshot = await getDocs(q)
+        const snapshot = await getDocs(scoresRef)
         const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
 
         // Sort: highest score first, then lowest durationMs (best time)
@@ -35,6 +35,7 @@ function Info() {
         })
 
         setLeaderboard(data)
+        setScoreCount(data.length)
       } catch (e) {
         console.error('Failed to load scores from Firestore on Info page', e)
       }
@@ -71,6 +72,10 @@ function Info() {
         <div className="stat-card">
           <h2>{t.uniqueVisitors}</h2>
           <p className="stat-number">{loading ? '...' : uniqueVisitors.toLocaleString()}</p>
+        </div>
+        <div className="stat-card">
+          <h2>{t.totalParticipants}</h2>
+          <p className="stat-number">{loading ? '...' : scoreCount.toLocaleString()}</p>
         </div>
       </div>
 
